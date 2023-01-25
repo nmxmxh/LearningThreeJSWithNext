@@ -15,7 +15,7 @@ const S = {
   `,
 };
 
-export default function Home() {
+export default function Webpack() {
   return (
     <S.Container>
       <Head>
