@@ -18,7 +18,7 @@ const S = {
   `,
 };
 
-// Look for how to implement lookAt funcitonality with React & Three
+// Look for how to implement lookAt functionality with React & Three
 
 export default function TransformObjects() {
   return (
