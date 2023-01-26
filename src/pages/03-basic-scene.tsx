@@ -15,7 +15,7 @@ const S = {
   `,
 };
 
-export default function BasicScene() {
+export default function Home() {
   return (
     <S.Container>
       <Head>
