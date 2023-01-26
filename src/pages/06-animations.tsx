@@ -1,6 +1,9 @@
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
+import gsap from 'gsap';
 import Head from 'next/head';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { Clock, Mesh } from 'three';
 import Cube from 'components/Cube/cube';
 
 const S = {
@@ -18,28 +21,54 @@ const S = {
   `,
 };
 
-// Look for how to implement lookAt functionality with React & Three
+function AnimatedComponent() {
+  const cubeRef = useRef<Mesh>(null!);
+  // let time = Date.now();
+
+  const clock = new Clock();
+
+  // SOLUTION 3. Using an external library. i.e (GSAP);
+  useEffect(() => {
+    gsap.to(cubeRef.current.position, { duration: 1, delay: 1, x: 2 });
+  }, []);
+
+
+  useFrame(state => {
+    // SOLUTION 1. Delta Time
+    // const currentTime = Date.now();
+    // const deltaTime = currentTime - time;
+    // time = currentTime;
+    // cubeRef.current.rotation.y += 0.002 * deltaTime;
+
+    // SOLUTION 2. Using Clock.
+    const elapsedTime = clock.getElapsedTime();
+    cubeRef.current.rotation.y = Math.sin(elapsedTime);
+    state.camera.position.x = Math.sin(elapsedTime);
+    state.camera.lookAt(cubeRef.current.position)
+  });
+
+  return (
+    <group>
+      <Cube ref={cubeRef} />
+    </group>
+  )
+};
 
 export default function TransformObjects() {
+
+
   return (
     <S.Container>
       <Head>
-        <title>05 - Transfrom Objects</title>
+        <title>06 - Animations</title>
       </Head>
 
       <Canvas
-        camera={{ position: [0, 1, 5], fov: 75 }}
+        camera={{ position: [1, 1, 5], fov: 75 }}
       >
-        <group
-          position={[0, 0, 0]}
-          scale={[1, 2, 1]}
-        >
-          <Cube position={[2, 1, 1]} color={"red"} />
-          <Cube position={[0, 1, 1]} color={"blue"} />
-          <Cube position={[-2, 1, 1]} color={"green"} />
-        </group>
-        <axesHelper args={[5]} />
+        <AnimatedComponent />
+        <axesHelper args={[3]} />
       </Canvas>
     </S.Container>
   );
-}
+};
