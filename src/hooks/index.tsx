@@ -1,3 +1,4 @@
 import useMousePosition from "./useMousePosition";
+import useWindowDimensions from "./useWindowDimensions";
 
-export { useMousePosition };
+export { useMousePosition, useWindowDimensions };
