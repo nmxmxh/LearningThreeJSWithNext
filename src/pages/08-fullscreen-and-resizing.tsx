@@ -1,11 +1,11 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import Head from 'next/head';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { Mesh } from 'three';
 import { Cube } from 'components';
-import { useWindowAndDocument } from 'hooks';
+import { useToggleFullscreen, useWindowAndDocument } from 'hooks';
 
 const S = {
   Container: styled.div`
@@ -37,12 +37,7 @@ function AnimatedComponent() {
 
 export default function FullscreenAndResizing() {
   const { _window } = useWindowAndDocument();
-  // TODO: Look into crossbrowser, fullscreen functionality.
-  const [fullscreen, setFullscreen] = useState(false);
-
-  function switchFullscreen() {
-    setFullscreen(prevState => !prevState)
-  }
+  const toggleFullscreen = useToggleFullscreen();
 
   return (
     <S.Container>
@@ -53,7 +48,7 @@ export default function FullscreenAndResizing() {
       <Canvas
         camera={{ position: [0, 0, 4], fov: 75 }}
         dpr={Math.min((_window ? window.devicePixelRatio : 1), 2)}
-        onDoubleClick={switchFullscreen}
+        onDoubleClick={toggleFullscreen}
       >
         <group>
           <AnimatedComponent />
