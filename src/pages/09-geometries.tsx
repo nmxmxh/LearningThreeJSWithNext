@@ -22,6 +22,8 @@ const S = {
   `,
 };
 
+// TODO: Look into creating custom geometries.
+
 function AnimatedComponent() {
   const cubeRef = useRef<Mesh>(null!);
   useFrame(state => {
@@ -29,7 +31,16 @@ function AnimatedComponent() {
   });
 
   return (
-    <Cube ref={cubeRef} geometryArgs={[1, 1, 1, 5, 5, 5]} color={"red"} />
+    <Cube
+      ref={cubeRef}
+      geometryArgs={{
+        args: [1, 1, 1, 3, 3, 3]
+      }}
+      materialArgs={{
+        color: "red",
+        wireframe: true,
+      }}
+    />
   )
 };
 
@@ -46,7 +57,7 @@ export default function Geometries() {
       </Head>
 
       <Canvas
-        camera={{ position: [0, 0, 4], fov: 75 }}
+        camera={{ position: [1, 1, 4], fov: 75 }}
         dpr={Math.min((_window ? window.devicePixelRatio : 1), 2)}
         onDoubleClick={toggleFullscreen}
       >

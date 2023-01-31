@@ -29,7 +29,7 @@ function AnimatedComponent() {
   });
 
   return (
-    <Cube ref={cubeRef} geometryArgs={[1, 1, 1, 5, 5, 5]} color={"red"} />
+    <Cube ref={cubeRef} geometryArgs={{ args: [1, 1, 1, 5, 5, 5] }} materialArgs={{ color: "red" }} />
   )
 };
 

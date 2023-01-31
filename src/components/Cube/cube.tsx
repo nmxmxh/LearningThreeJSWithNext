@@ -3,25 +3,20 @@ import React from "react";
 import { Mesh } from "three";
 
 interface CubeProps extends MeshProps {
-  position?: Vector3;
-  scale?: Vector3;
-  rotation?: Euler;
-  color?: Color;
   geometryArgs?: any;
+  materialArgs?: any;
 }
 
 const Cube = React.forwardRef((props: CubeProps, ref: React.ForwardedRef<Mesh>) => {
-  const { position, scale, rotation, color, geometryArgs } = props;
+  const { geometryArgs, materialArgs } = props;
 
   return (
     <mesh
-      position={position}
-      scale={scale}
-      rotation={rotation}
       ref={ref}
+      {...props}
     >
-      <boxGeometry args={geometryArgs ?? [1, 1, 1]} />
-      <meshBasicMaterial color={color} />
+      <boxGeometry args={[1, 1, 1]} {...geometryArgs} />
+      <meshBasicMaterial {...materialArgs} />
     </mesh>
   )
 });
