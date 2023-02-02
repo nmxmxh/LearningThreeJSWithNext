@@ -2,6 +2,7 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import Head from 'next/head';
 import { useRef } from 'react';
+import DatGui, { DatBoolean, DatNumber } from 'react-dat-gui';
 import styled from 'styled-components';
 import { Mesh } from 'three';
 import { Cube } from 'components';
@@ -29,7 +30,7 @@ function AnimatedComponent() {
   });
 
   return (
-    <Cube
+    <>    <Cube
       ref={cubeRef}
       geometryArgs={{
         args: [1, 1, 1, 3, 3, 3]
@@ -39,6 +40,25 @@ function AnimatedComponent() {
         wireframe: true,
       }}
     />
+      <DatGui
+
+        onUpdate={() => console.log("updating")}
+        data={{
+          string: "Preset B",
+          minMaxNumber: 12,
+          number: 68,
+          boolean: true,
+          select: "three",
+          color: "#2FD654",
+          random: Math.random(),
+        }} >
+        <DatNumber path="number" label="Number" min={0}
+          max={100}
+          step={1} />
+        <DatBoolean path="boolean" label="Boolean" />
+      </DatGui>
+    </>
+
   )
 };
 
