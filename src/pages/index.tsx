@@ -9,8 +9,5 @@ const S = {
 };
 
 export default function Home() {
-  return (
-    <S.Container>
-    </S.Container>
-  );
+  return <S.Container></S.Container>;
 }

@@ -24,16 +24,16 @@ const S = {
 
 function AnimatedComponent() {
   const cubeRef = useRef<Mesh>(null!);
-  useFrame(state => {
-
-  });
+  useFrame((state) => {});
 
   return (
-    <Cube ref={cubeRef} geometryArgs={{ args: [1, 1, 1, 5, 5, 5] }} materialArgs={{ color: "red" }} />
-  )
-};
-
-
+    <Cube
+      ref={cubeRef}
+      geometryArgs={{ args: [1, 1, 1, 5, 5, 5] }}
+      materialArgs={{ color: 'red' }}
+    />
+  );
+}
 
 export default function FullscreenAndResizing() {
   const { _window } = useWindowAndDocument();
@@ -47,7 +47,7 @@ export default function FullscreenAndResizing() {
 
       <Canvas
         camera={{ position: [0, 0, 4], fov: 75 }}
-        dpr={Math.min((_window ? window.devicePixelRatio : 1), 2)}
+        dpr={Math.min(_window ? window.devicePixelRatio : 1, 2)}
         onDoubleClick={toggleFullscreen}
       >
         <group>

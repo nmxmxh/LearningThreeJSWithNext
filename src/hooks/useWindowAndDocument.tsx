@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function useWindowAndDocument() {
   const [_window, setWindowObject] = useState<Window | null>(null);

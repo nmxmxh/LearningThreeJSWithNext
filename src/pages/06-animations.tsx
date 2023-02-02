@@ -32,8 +32,7 @@ function AnimatedComponent() {
     gsap.to(cubeRef.current.position, { duration: 1, delay: 1, x: 2 });
   }, []);
 
-
-  useFrame(state => {
+  useFrame((state) => {
     // SOLUTION 1. Delta Time
     // const currentTime = Date.now();
     // const deltaTime = currentTime - time;
@@ -44,31 +43,27 @@ function AnimatedComponent() {
     const elapsedTime = clock.getElapsedTime();
     cubeRef.current.rotation.y = Math.sin(elapsedTime);
     state.camera.position.x = Math.sin(elapsedTime);
-    state.camera.lookAt(cubeRef.current.position)
+    state.camera.lookAt(cubeRef.current.position);
   });
 
   return (
     <group>
       <Cube ref={cubeRef} />
     </group>
-  )
-};
+  );
+}
 
 export default function TransformObjects() {
-
-
   return (
     <S.Container>
       <Head>
         <title>06 - Animations</title>
       </Head>
 
-      <Canvas
-        camera={{ position: [1, 1, 5], fov: 75 }}
-      >
+      <Canvas camera={{ position: [1, 1, 5], fov: 75 }}>
         <AnimatedComponent />
         <axesHelper args={[3]} />
       </Canvas>
     </S.Container>
   );
-};
+}

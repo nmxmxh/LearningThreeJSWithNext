@@ -7,5 +7,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <Component {...pageProps} />
     </>
-  )
+  );
 }

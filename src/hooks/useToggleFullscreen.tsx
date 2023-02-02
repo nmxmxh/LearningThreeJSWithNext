@@ -1,4 +1,4 @@
-import useWindowAndDocument from "./useWindowAndDocument";
+import useWindowAndDocument from './useWindowAndDocument';
 
 interface FullscreenDocument extends Document {
   mozFullScreenElement?: Element;
@@ -24,28 +24,29 @@ export default function useToggleFullScreen() {
       const doc: FullscreenDocument = window.document;
       const docEl: DocumentElement = doc.documentElement;
 
-      const requestFullScreen = docEl.requestFullscreen
-        || docEl.mozRequestFullScreen
-        || docEl.webkitRequestFullScreen
-        || docEl.msRequestFullscreen;
-      const cancelFullScreen = doc.exitFullscreen
-        || doc.mozCancelFullScreen
-        || doc.webkitExitFullscreen
-        || doc.msExitFullscreen;
+      const requestFullScreen =
+        docEl.requestFullscreen ||
+        docEl.mozRequestFullScreen ||
+        docEl.webkitRequestFullScreen ||
+        docEl.msRequestFullscreen;
+      const cancelFullScreen =
+        doc.exitFullscreen ||
+        doc.mozCancelFullScreen ||
+        doc.webkitExitFullscreen ||
+        doc.msExitFullscreen;
 
       if (
-        !doc.fullscreenElement
-        && !doc.mozFullScreenElement
-        && !doc.webkitFullscreenElement
-        && !doc.msFullscreenElement
+        !doc.fullscreenElement &&
+        !doc.mozFullScreenElement &&
+        !doc.webkitFullscreenElement &&
+        !doc.msFullscreenElement
       ) {
         requestFullScreen.call(docEl);
-      }
-      else {
+      } else {
         cancelFullScreen.call(doc);
       }
     }
   }
 
-  return toggleFullscreen
+  return toggleFullscreen;
 }

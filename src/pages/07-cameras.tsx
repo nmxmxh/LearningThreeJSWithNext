@@ -31,26 +31,26 @@ function AnimatedComponent() {
   const cordX = (x ?? 0) / width - 0.5;
   const cordY = (y ?? 0) / height - 0.5;
 
-  useFrame(state => {
+  useFrame((state) => {
     // const elapsedTime = clock.getElapsedTime();
     // cubeRef.current.rotation.y = elapsedTime;
     // console.log(cordX, cordY)
-
     // state.camera.position.x = Math.sin(cordX * Math.PI * 2) * 3;
     // state.camera.position.z = Math.cos(cordX * Math.PI * 2) * 3;
     // state.camera.position.y = cordY * 5;
-
     // lookAt AFTER setting position
     // state.camera.lookAt(cubeRef.current.position);
     // switching camera controls to orbit controls
   });
 
   return (
-    <Cube ref={cubeRef} geometryArgs={{ args: [1, 1, 1, 5, 5, 5] }} materialArgs={{ color: "red" }} />
-  )
-};
-
-
+    <Cube
+      ref={cubeRef}
+      geometryArgs={{ args: [1, 1, 1, 5, 5, 5] }}
+      materialArgs={{ color: 'red' }}
+    />
+  );
+}
 
 export default function Cameras() {
   return (
@@ -59,8 +59,7 @@ export default function Cameras() {
         <title>07 - Cameras</title>
       </Head>
 
-      <Canvas
-        camera={{ position: [0, 0, 4], fov: 75 }}>
+      <Canvas camera={{ position: [0, 0, 4], fov: 75 }}>
         <group>
           <AnimatedComponent />
         </group>

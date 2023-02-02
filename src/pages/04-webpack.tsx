@@ -22,14 +22,11 @@ export default function Webpack() {
         <title>03 - Basic Scene</title>
       </Head>
 
-      <Canvas
-        camera={{ position: [2, 0, 12.25], fov: 15 }}
-      >
+      <Canvas camera={{ position: [2, 0, 12.25], fov: 15 }}>
         <mesh>
           <boxGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color='red' />
+          <meshBasicMaterial color="red" />
         </mesh>
-
       </Canvas>
     </S.Container>
   );

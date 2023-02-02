@@ -26,25 +26,21 @@ const S = {
 
 function AnimatedComponent() {
   const cubeRef = useRef<Mesh>(null!);
-  useFrame(state => {
-
-  });
+  useFrame((state) => {});
 
   return (
     <Cube
       ref={cubeRef}
       geometryArgs={{
-        args: [1, 1, 1, 3, 3, 3]
+        args: [1, 1, 1, 3, 3, 3],
       }}
       materialArgs={{
-        color: "red",
+        color: 'red',
         wireframe: true,
       }}
     />
-  )
-};
-
-
+  );
+}
 
 export default function Geometries() {
   const { _window } = useWindowAndDocument();
@@ -58,7 +54,7 @@ export default function Geometries() {
 
       <Canvas
         camera={{ position: [1, 1, 4], fov: 75 }}
-        dpr={Math.min((_window ? window.devicePixelRatio : 1), 2)}
+        dpr={Math.min(_window ? window.devicePixelRatio : 1, 2)}
         onDoubleClick={toggleFullscreen}
       >
         <group>

@@ -27,16 +27,11 @@ export default function TransformObjects() {
         <title>05 - Transfrom Objects</title>
       </Head>
 
-      <Canvas
-        camera={{ position: [0, 1, 5], fov: 75 }}
-      >
-        <group
-          position={[0, 0, 0]}
-          scale={[1, 2, 1]}
-        >
-          <Cube position={[2, 1, 1]} color={"red"} />
-          <Cube position={[0, 1, 1]} color={"blue"} />
-          <Cube position={[-2, 1, 1]} color={"green"} />
+      <Canvas camera={{ position: [0, 1, 5], fov: 75 }}>
+        <group position={[0, 0, 0]} scale={[1, 2, 1]}>
+          <Cube position={[2, 1, 1]} color={'red'} />
+          <Cube position={[0, 1, 1]} color={'blue'} />
+          <Cube position={[-2, 1, 1]} color={'green'} />
         </group>
         <axesHelper args={[5]} />
       </Canvas>
