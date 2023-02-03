@@ -45,7 +45,6 @@ function AnimatedComponent() {
 export default function DebugUI() {
   const { _window } = useWindowAndDocument();
   const toggleFullscreen = useToggleFullscreen();
-  const [gui, setGui] = useState();
 
   return (
     <S.Container>
@@ -64,7 +63,6 @@ export default function DebugUI() {
         <axesHelper args={[5]} />
         <OrbitControls enableDamping />
       </Canvas>
-      <Gui setGui={setGui} />
     </S.Container>
   );
 }
