@@ -9,14 +9,15 @@ import DatGui, {
   DatString,
 } from 'react-dat-gui';
 import '../../../node_modules/react-dat-gui/dist/index.css';
+import { Option, Props } from './types';
 
-function selectDebugOption(option: any) {
+function selectDebugOption(option: Option) {
   switch (option.type) {
     case 'boolean':
       return <DatBoolean path={option.path} label={option.name} />;
     case 'button':
       return <DatButton onClick={option.func} />;
-    case 'numbert':
+    case 'number':
       return (
         <DatNumber
           path={option.path}
@@ -50,10 +51,10 @@ function selectDebugOption(option: any) {
   }
 }
 
-export default function DebugGUI({ options, setOptions }) {
+export default function DebugGUI({ options, setOptions }: Props) {
   return (
     <DatGui data={options} onUpdate={setOptions}>
-      {options.map((option) => selectDebugOption(option))}
+      {options.map((option: Option) => selectDebugOption(option))}
     </DatGui>
   );
 }
