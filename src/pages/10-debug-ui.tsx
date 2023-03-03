@@ -4,10 +4,7 @@ import Head from 'next/head';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Mesh } from 'three';
-import { Cube, Gui } from 'components';
-import DebugGUI from 'components/DebugUi/debugUi';
-import { Options } from 'components/DebugUi/types';
-import { useDebugUI } from 'context';
+import { Cube } from 'components';
 import { useToggleFullscreen, useWindowAndDocument } from 'hooks';
 
 const S = {
