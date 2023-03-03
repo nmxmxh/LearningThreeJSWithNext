@@ -53,8 +53,8 @@ function selectDebugOption(option: Option) {
 
 export default function DebugGUI({ options, setOptions }: Props) {
   return (
-    <DatGui data={options} onUpdate={setOptions}>
-      {options.map((option: Option) => selectDebugOption(option))}
+    <DatGui data={options} onUpdate={setOptions!}>
+      {options?.map((option: Option) => selectDebugOption(option))}
     </DatGui>
   );
 }

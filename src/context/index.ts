@@ -1,3 +1,3 @@
-import { DebugProvider } from './debug';
+import { DebugProvider, useDebugUI } from './debug';
 
-export { DebugProvider };
+export { DebugProvider, useDebugUI };

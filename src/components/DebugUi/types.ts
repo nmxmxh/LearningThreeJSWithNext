@@ -64,6 +64,6 @@ export type Option =
 export type Options = Option[];
 
 export interface Props {
-  options: Options;
-  setOptions: React.Dispatch<React.SetStateAction<Options>>;
+  options?: Options;
+  setOptions?: React.Dispatch<React.SetStateAction<Options[]>>;
 }
