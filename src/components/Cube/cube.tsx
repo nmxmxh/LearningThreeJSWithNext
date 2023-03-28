@@ -1,10 +1,17 @@
-import { Color, Euler, MeshProps, Vector3 } from '@react-three/fiber';
+import {
+  BoxGeometryProps,
+  Color,
+  Euler,
+  MeshBasicMaterialProps,
+  MeshProps,
+  Vector3,
+} from '@react-three/fiber';
 import React from 'react';
 import { Mesh } from 'three';
 
 interface CubeProps extends MeshProps {
-  geometryArgs?: any;
-  materialArgs?: any;
+  geometryArgs?: BoxGeometryProps;
+  materialArgs?: MeshBasicMaterialProps;
 }
 
 const Cube = React.forwardRef(
