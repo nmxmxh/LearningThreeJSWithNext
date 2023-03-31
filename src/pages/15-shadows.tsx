@@ -8,7 +8,6 @@ import {
   Clock,
   DirectionalLight as DL,
   Mesh,
-  PCFSoftShadowMap,
   SpotLight as SL,
   PointLight as PL,
 } from 'three';
