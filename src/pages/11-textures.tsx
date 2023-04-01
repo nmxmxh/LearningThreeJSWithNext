@@ -32,7 +32,7 @@ function AnimatedComponent() {
     metalnessTexture,
     roughnessTexture,
   ] = useTexture([
-    '/textures/minecraft.png',
+    '/textures/door/color.jpg',
     '/textures/door/alpha.jpg',
     '/textures/door/height.jpg',
     '/textures/door/normal.jpg',
