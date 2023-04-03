@@ -19,7 +19,7 @@ interface Props {
 function Bush(props: Props) {
   const { position, scale } = props;
   return (
-    <Sphere position={position} scale={scale}>
+    <Sphere position={position} scale={scale} castShadow>
       <sphereBufferGeometry args={[1, 16, 16]} />
       <meshStandardMaterial color="#89c854" />
     </Sphere>
@@ -99,7 +99,7 @@ function Walls() {
   });
 
   return (
-    <Box position={[0, 1.25, 0]} ref={wallRef}>
+    <Box position={[0, 1.25, 0]} ref={wallRef} castShadow>
       <boxBufferGeometry args={[4, 2.5, 4]} />
       <meshStandardMaterial
         map={bricksColorTexture}
@@ -112,11 +112,12 @@ function Walls() {
   );
 }
 
-function Graves(angle: number, x: number, z: number) {
+function Graves(x: number, z: number) {
   return (
     <Box
       position={[x, 0.2, z]}
       rotation={[0, Math.random() - 0.5 * 0.3, Math.random() - 0.4]}
+      castShadow
     >
       <boxBufferGeometry args={[0.6, 0.8, 0.2]} />
       <meshStandardMaterial color="#b2b6b1" />
@@ -170,6 +171,7 @@ function Floor() {
       rotation={[-Math.PI * 0.5, 0, 0]}
       position={[0, 0, 0]}
       ref={floorRef}
+      receiveShadow
     >
       <meshStandardMaterial
         map={grassColorTexture}
@@ -187,10 +189,9 @@ function Doorlight() {
   const lightRef = useRef<PointLight>(null!);
   useFrame(() => {
     if (lightRef.current) {
-      lightRef.current.shadow.mapSize.width = 1024;
-      lightRef.current.shadow.mapSize.height = 1024;
-      lightRef.current.shadow.camera.near = 0.1;
-      lightRef.current.shadow.camera.far = 5;
+      lightRef.current.shadow.mapSize.width = 256;
+      lightRef.current.shadow.mapSize.height = 256;
+      lightRef.current.shadow.camera.far = 7;
     }
   });
 
@@ -199,6 +200,7 @@ function Doorlight() {
       args={['#ff7d46', 1, 7]}
       position={[0, 2.2, 2.7]}
       ref={lightRef}
+      castShadow
     />
   );
 }
@@ -208,32 +210,49 @@ function Ghosts() {
   const ghost2Ref = useRef<PointLight>(null!);
   const ghost3Ref = useRef<PointLight>(null!);
 
-  // useFrame(() => {
-  //   if (lightRef.current) {
-  //     lightRef.current.shadow.mapSize.width = 1024;
-  //     lightRef.current.shadow.mapSize.height = 1024;
-  //     lightRef.current.shadow.camera.near = 0.1;
-  //     lightRef.current.shadow.camera.far = 5;
-  //   }
-  // });
+  const clock = new Clock();
+
+  useFrame(() => {
+    const elapsedTime = clock.getElapsedTime();
+
+    const ghost1Angle = elapsedTime * 0.5;
+    const ghost2Angle = -elapsedTime * 0.32;
+    const ghost3Angle = -elapsedTime * 0.18;
+
+    ghost1Ref.current.position.x = Math.cos(ghost1Angle) * 4;
+    ghost1Ref.current.position.z = Math.sin(ghost1Angle) * 4;
+    ghost1Ref.current.position.y = Math.sin(elapsedTime * 3);
+
+    ghost2Ref.current.position.x = Math.cos(ghost2Angle) * 5;
+    ghost2Ref.current.position.z = Math.sin(ghost2Angle) * 5;
+    ghost2Ref.current.position.y =
+      Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
+    ghost3Ref.current.position.x =
+      Math.cos(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.32));
+    ghost3Ref.current.position.z =
+      Math.sin(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.5));
+    ghost3Ref.current.position.y =
+      Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
+    ghost1Ref.current.shadow.mapSize.width = 256;
+    ghost1Ref.current.shadow.mapSize.height = 256;
+    ghost1Ref.current.shadow.camera.far = 7;
+
+    ghost2Ref.current.shadow.mapSize.width = 256;
+    ghost2Ref.current.shadow.mapSize.height = 256;
+    ghost2Ref.current.shadow.camera.far = 7;
+
+    ghost3Ref.current.shadow.mapSize.width = 256;
+    ghost3Ref.current.shadow.mapSize.height = 256;
+    ghost3Ref.current.shadow.camera.far = 7;
+  });
 
   return (
     <group>
-      <pointLight
-        args={['#ff7d46', 1, 7]}
-        position={[0, 2.2, 2.7]}
-        ref={ghost1Ref}
-      />
-      <pointLight
-        args={['#ff7d46', 1, 7]}
-        position={[0, 2.2, 2.7]}
-        ref={ghost2Ref}
-      />
-      <pointLight
-        args={['#ff7d46', 1, 7]}
-        position={[0, 2.2, 2.7]}
-        ref={ghost3Ref}
-      />
+      <pointLight args={['#ff00ff', 2, 3]} ref={ghost1Ref} castShadow />
+      <pointLight args={['#00ffff', 2, 3]} ref={ghost2Ref} castShadow />
+      <pointLight args={['#ffff00', 2, 3]} ref={ghost3Ref} castShadow />
     </group>
   );
 }
@@ -258,17 +277,6 @@ const bushes: Props[] = [
 ];
 
 export function House() {
-  const sphereRef = useRef<Mesh>(null!);
-  const floorRef = useRef<Mesh>(null!);
-
-  const clock = new Clock();
-
-  useFrame(() => {
-    const elapsedTime = clock.getElapsedTime();
-
-    // set shadow position.
-  });
-
   return (
     <group>
       <Cone position={[0, 3, 0]} rotation={[0, Math.PI / 4, 0]}>
@@ -290,11 +298,12 @@ export function House() {
           const x = Math.sin(angle) * radius;
           const z = Math.cos(angle) * radius;
 
-          return Graves(angle, x, z);
+          return Graves(x, z);
         })}
       </group>
       <Floor />
       <Doorlight />
+      <Ghosts />
     </group>
   );
 }

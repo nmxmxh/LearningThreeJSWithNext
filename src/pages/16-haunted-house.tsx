@@ -1,16 +1,10 @@
-import { OrbitControls, Plane, Sphere, useTexture } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import _ from 'lodash';
 import Head from 'next/head';
 import { useRef } from 'react';
 import styled from 'styled-components';
-import {
-  Clock,
-  DirectionalLight as DL,
-  Mesh,
-  SpotLight as SL,
-  PointLight as PL,
-} from 'three';
+import { DirectionalLight as DL, PCFSoftShadowMap } from 'three';
 import { House } from 'components/House/house';
 import { useToggleFullscreen, useWindowAndDocument } from 'hooks';
 
@@ -40,6 +34,7 @@ function DirectionalLight() {
       args={['#b9d5ff', 0.12]}
       position={[4, 5, -2]}
       ref={lightRef}
+      castShadow
     />
   );
 }
@@ -58,15 +53,12 @@ export default function HauntedHouse() {
         camera={{ position: [4, 2, 5], fov: 75 }}
         dpr={Math.min(_window ? window.devicePixelRatio : 1, 2)}
         onDoubleClick={toggleFullscreen}
+        shadows={{ type: PCFSoftShadowMap }}
       >
-        <group>
-          <House />
-        </group>
-        <axesHelper args={[5]} />
+        <House />
 
         <ambientLight args={['#b9d5ff', 0.12]} />
         <fog attach="fog" color="#262837" near={1} far={15} />
-        <pointLight />
         <DirectionalLight />
         <OrbitControls enableDamping />
         <color attach="background" args={['#262837']} />
