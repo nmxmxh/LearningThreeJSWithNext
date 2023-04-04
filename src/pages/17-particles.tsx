@@ -1,4 +1,4 @@
-import { Box, OrbitControls, useTexture } from '@react-three/drei';
+import { OrbitControls, useTexture } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import _ from 'lodash';
 import Head from 'next/head';
@@ -9,7 +9,6 @@ import {
   BufferAttribute,
   BufferGeometry,
   Clock,
-  Mesh,
   Points,
 } from 'three';
 import { useToggleFullscreen, useWindowAndDocument } from 'hooks';
