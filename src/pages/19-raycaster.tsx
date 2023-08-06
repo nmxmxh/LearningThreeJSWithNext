@@ -33,7 +33,7 @@ function AnimatedComponent() {
     // console.log(raycasterRef.ray?.direction);
     // const intersect = raycasterRef?.intersectObject(sphere1);
     // console.log(intersect);
-  }, []);
+  }, [raycasterRef]);
 
   return (
     <group>
